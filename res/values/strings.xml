@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Daily Calories</string>
+    <string name="cm">cm</string>
+    <string name="ft">ft</string>
+    <string name="imperial_units">imperial_units</string>
+    <string name="metric_units">metric_units</string>
+    <string name="calculate">calculate</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
+    <string name="gender">Gender</string>
+    <string name="daily_calories_calculator">Daily Calories Caltulator</string>
+    <string name="age">Age</string>
+    <string name="height">Height</string>
+    <string name="switch_to_cm">Switch to Metric</string>
+    <string name="switch_to_lb">Switch to Imperial</string>
+    <string name="years">Years</string>
+
+
+        <string-array name="Categories">
+            <item>Choose Activity level</item>
+            <item>Little or no exercise</item>
+            <item>3 workouts a week</item>
+            <item>5 workouts a week</item>
+            <item>Daily workouts</item>
+            <item>Daily workouts + physical job</item>
+
+        </string-array>
+
+</resources>
