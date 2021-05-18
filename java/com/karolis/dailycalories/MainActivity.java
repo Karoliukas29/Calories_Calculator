@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -24,14 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText weightKgEditText, heightCmEditText, ageYearsEditText;
     private EditText weightLbsEditText, heightFtEditText, heightInEditText;
     private Button calculateButton;
-    private TextView bmiTextView, categoryTextView, bmrTextView, bmrCategory;
+    private TextView bmiTextView, categoryTextView, bmrTextView, activityBmrCategory;
     private ToggleButton toggleUnitsButton;
     private CardView bmiResultCardView, bmrResultCardView;
     private Spinner dropDownMenu;
-    private RadioGroup GenderHolder;
-    private RadioButton selectMale, selectFemale;
-    private String currentActivitiesPosition = "0";
-
+    private RadioButton radioMan, radioWoman;
+    private RadioGroup radioGroup;
+    private String genderSelected = "female";
+    private int activitySelectionLevel;
 
     private boolean inMetricUnits;
 
@@ -53,13 +55,15 @@ public class MainActivity extends AppCompatActivity {
         toggleUnitsButton = findViewById(R.id.activity_main_toggleunits);
 
         ageYearsEditText = findViewById(R.id.yearsET);
-        selectFemale = findViewById(R.id.radio_Woman1);
-        selectMale = findViewById(R.id.radio_Man1);
+        radioWoman = findViewById(R.id.radio_Woman1);
+        radioMan = findViewById(R.id.radio_Man1);
+
+        radioGroup = findViewById(R.id.radioGroup1);
 
         bmiTextView = findViewById(R.id.activity_main_bmi);
         categoryTextView = findViewById(R.id.activity_main_category);
         bmrTextView = findViewById(R.id.activity_main_bmr);
-        bmrCategory = findViewById(R.id.activity_bmr_category);
+        activityBmrCategory = findViewById(R.id.activity_bmr_category);
 
         bmiResultCardView = findViewById(R.id.activity_main_resultcard);
         bmrResultCardView = findViewById(R.id.activity_main_bmrresultcard);
@@ -72,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             checkInputs();
-             checkBMR();
+                checkInputs();
+                checkBMR();
             }
 
         });
@@ -85,15 +89,19 @@ public class MainActivity extends AppCompatActivity {
                 updateInputsVisibility();
             }
         });
-        //dropdown menu array adapter
+//        dropdown menu array adapter
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.Categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropDownMenu.setAdapter(adapter);
+        dropDownMenu.setSelection(0);
         dropDownMenu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                currentActivitiesPosition = String.valueOf(0);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) { ;
+            activitySelectionLevel = position;
+            checkBMR();
+
+
             }
 
             @Override
@@ -101,10 +109,33 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("NonConstantResourceId")
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+                switch (checkedId) {
+                    case R.id.radio_Man1:
+                        // switch to fragment 1
+                        genderSelected = "male";
+                        checkBMR();
+
+                        break;
+                    case R.id.radio_Woman1:
+                        genderSelected = "female";
+                        checkBMR();
+                        // Fragment 2
+                        break;
+                }
+            }
+        });
+
+
     }
-    private void checkInputs(){
+
+
+    private void checkInputs() {
         if (inMetricUnits) {
-            if (weightKgEditText.length() == 0 || heightCmEditText.length() == 0 || ageYearsEditText.length() ==0) {
+            if (weightKgEditText.length() == 0 || heightCmEditText.length() == 0 || ageYearsEditText.length() == 0) {
                 Toast.makeText(MainActivity.this, "Fill out the empty fields", Toast.LENGTH_SHORT).show();
             } else {
                 double heightInCms = Double.parseDouble(heightCmEditText.getText().toString());
@@ -113,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 displayBMI(bmi);
             }
         } else {
-            if (weightKgEditText.length() == 0 || heightCmEditText.length() == 0 || ageYearsEditText.length() ==0) {
+            if (weightKgEditText.length() == 0 || heightCmEditText.length() == 0 || ageYearsEditText.length() == 0) {
                 Toast.makeText(MainActivity.this, "Fill out the empty fields", Toast.LENGTH_SHORT).show();
             } else {
                 double heightFeet = Double.parseDouble(heightFtEditText.getText().toString());
@@ -124,24 +155,52 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private void checkBMR(){
-        if (inMetricUnits){
+
+    private void checkBMR() {
+        ArrayList<Double> energyLevelValues = new ArrayList<>();
+        energyLevelValues.add(1.0);
+        energyLevelValues.add(1.2);
+        energyLevelValues.add(1.375);
+        energyLevelValues.add(1.55);
+        energyLevelValues.add(1.725);
+        energyLevelValues.add(1.9);
+
+        if (inMetricUnits) {
+            if (weightKgEditText.length() == 0 || heightCmEditText.length() == 0 || ageYearsEditText.length() == 0) {
+                Toast.makeText(MainActivity.this, "Fill out the empty fields", Toast.LENGTH_SHORT).show();
+            } else {
                 double heightInCms = Double.parseDouble(heightCmEditText.getText().toString());
                 double weightInKgs = Double.parseDouble(weightKgEditText.getText().toString());
                 double age = Double.parseDouble(ageYearsEditText.getText().toString());
-                double bmr = BMICalcUtil.getInstance().calculateBMRMetricMan(heightInCms, weightInKgs ,age);
-                displayBMR(bmr);
+                double bmr;
+                if (genderSelected.equals("male")) {
+                    bmr = BMICalcUtil.getInstance().calculateBMRMetricMan(heightInCms, weightInKgs, age);
+
+                } else{
+                    bmr = BMICalcUtil.getInstance().calculateBMRMetricWoman(heightInCms, weightInKgs, age);
+                }
+
+                displayBMR(bmr * energyLevelValues.get(activitySelectionLevel));
+            }
         } else {
+            if (weightKgEditText.length() == 0 || heightCmEditText.length() == 0 || ageYearsEditText.length() == 0) {
+                Toast.makeText(MainActivity.this, "Fill out the empty fields", Toast.LENGTH_SHORT).show();
+            } else {
                 double heightFeet = Double.parseDouble(heightFtEditText.getText().toString());
                 double heightInches = Double.parseDouble(heightInEditText.getText().toString());
                 double weightLbs = Double.parseDouble(weightLbsEditText.getText().toString());
                 double age = Double.parseDouble(ageYearsEditText.getText().toString());
-                double bmr = BMICalcUtil.getInstance().calculateBMRImperialMan(heightFeet, heightInches, weightLbs, age);
-                displayBMR(bmr);
-            }
+                double bmr;
+                if (genderSelected.equals("male")) {
+                    bmr = BMICalcUtil.getInstance().calculateBMRImperialMan(heightFeet, heightInches, weightLbs, age);
+
+                } else {
+                    bmr = BMICalcUtil.getInstance().calculateBMRImperialWoman(heightFeet, heightInches, weightLbs, age);
+                }
+
+                displayBMR(bmr * energyLevelValues.get(activitySelectionLevel));
+            }}
         }
-
-
 
 
 
@@ -185,16 +244,19 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+
     }
+
     @SuppressLint("DefaultLocale")
-    private void displayBMR (double bmr) {
+    private void displayBMR(double bmr) {
         bmrResultCardView.setVisibility(View.VISIBLE);
 
         bmrTextView.setText(String.format("%.2f", bmr));
 
-        String bmrCategory = BMICalcUtil.getInstance().classifyBMI(bmr);
-        categoryTextView.setText(bmrCategory);
+      //  String bmrCategory = BMICalcUtil.getInstance().classifyBMI(bmr);
+      //  activityBmrCategory.setText(bmrCategory);
 
     }
 
-    }
+
+}

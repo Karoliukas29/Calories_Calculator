@@ -19,9 +19,9 @@
         <string-array name="Categories">
             <item>Choose Activity level</item>
             <item>Little or no exercise</item>
-            <item>3 workouts a week</item>
-            <item>5 workouts a week</item>
-            <item>Daily workouts</item>
+            <item>Light exercise 1/3 days-week</item>
+            <item>Moderate exercise 3/5 days/week</item>
+            <item>Hard exercise 6/7 days/week</item>
             <item>Daily workouts + physical job</item>
 
         </string-array>

@@ -25,6 +25,9 @@ public class BMICalcUtil {
         return (BMI_IMPERIAL_WEIGHT_SCALAR * weightLbs) / (totalHeightInInches * totalHeightInInches);
     }
 
+
+
+
     public double calculateBMRMetricMan(double heightCm, double weightKg, double age){
         return((10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5);
     }
@@ -44,6 +47,8 @@ public class BMICalcUtil {
         double totalHeightInInches = (heightFeet * INCHES_IN_FOOT) + heightInches;
         return((4.536 * weightLbs) + (15.88 * totalHeightInInches) - (5 * age) -161);
     }
+
+
 
     public String classifyBMI(double bmi) {
         if (bmi < 18.5) {
