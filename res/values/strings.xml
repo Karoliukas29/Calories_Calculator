@@ -8,15 +8,17 @@
     <string name="man">Man</string>
     <string name="woman">Woman</string>
     <string name="gender">Gender</string>
-    <string name="daily_calories_calculator">Daily Calories Caltulator</string>
+    <string name="daily_calories_calculator">HealthyLife</string>
     <string name="age">Age</string>
     <string name="height">Height</string>
     <string name="switch_to_cm">Switch to Metric</string>
     <string name="switch_to_lb">Switch to Imperial</string>
     <string name="years">Years</string>
+    <string name="bmr">BMR</string>
+    <string name="bmi">BMI</string>
 
 
-        <string-array name="Categories">
+    <string-array name="Categories">
             <item>Choose Activity level</item>
             <item>Little or no exercise</item>
             <item>Light exercise 1/3 days-week</item>
@@ -25,5 +27,15 @@
             <item>Daily workouts + physical job</item>
 
         </string-array>
+
+    <string-array name="Goals">
+        <item>Choose Your Goal</item>
+        <item>Weight Loss</item>
+        <item>Rapid Weight Loss</item>
+        <item>Weight Gain</item>
+        <item>Rapid Weight Gain</item>
+
+    </string-array>
+
 
 </resources>

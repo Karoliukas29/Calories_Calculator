@@ -12,6 +12,7 @@ public class BMICalcUtil {
     public static final String BMI_CATEGORY_OVERWEIGHT = "A BMI of 25-29.9 indicates that you are slightly overweight, in order to avoid health issues in the future speak with your doctor";
     public static final String BMI_CATEGORY_OBESE = "A BMI over 30 indicates that you are heavily overweight. Your health might be at risk if you won't lose some weight. You are highly recommended to see doctor for advice";
 
+
     public static BMICalcUtil getInstance() {
         return instance;
     }
@@ -47,6 +48,8 @@ public class BMICalcUtil {
         double totalHeightInInches = (heightFeet * INCHES_IN_FOOT) + heightInches;
         return((4.536 * weightLbs) + (15.88 * totalHeightInInches) - (5 * age) -161);
     }
+
+
 
 
 

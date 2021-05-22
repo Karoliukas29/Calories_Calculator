@@ -15,7 +15,7 @@
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="8dp"
         tools:ignore="RtlHardcoded">
 
@@ -23,9 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="13dp"
+            android:alpha="5"
+            android:rotation="3"
+            android:rotationY="2"
+            android:scaleY="1"
             android:text="@string/daily_calories_calculator"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold|italic" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,6 +61,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/height"
+                    android:textColor="@color/black"
                     android:textSize="24sp" />
 
                 <EditText
@@ -122,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="Weight"
+                    android:textColor="#0C0000"
                     android:textSize="24sp" />
                 <EditText
                     android:id="@+id/activity_main_weightkgs"
@@ -178,12 +185,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="17dp"
                         android:gravity="center_horizontal"
                         android:text="@string/gender"
+                        android:textColor="@color/black"
                         android:textSize="24sp" />
                     <RadioButton
                         android:id="@+id/radio_Woman1"
@@ -226,11 +235,13 @@
                 android:layout_height="123dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/age"
+                    android:textColor="@color/black"
                     android:textSize="24sp" />
 
                 <EditText
@@ -248,15 +259,34 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:weightSum="1"
+        >
     <Spinner
         android:id="@+id/dropdown_menu1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="12dp"
+        android:textAlignment="textEnd"
+        android:layout_marginBottom="3dp"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
-        />
+    <Spinner
+        android:id="@+id/dropdown_menu2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="textEnd"
+        tools:ignore="RtlHardcoded" />
+
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -305,7 +335,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="BMI"
+                android:text="@string/bmi"
                 android:textSize="24sp" />
 
             <TextView
@@ -314,7 +344,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/activity_main_category"
@@ -322,7 +352,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -346,7 +376,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="BMR"
+            android:text="@string/bmr"
             android:textSize="24sp" />
 
         <TextView
@@ -355,7 +385,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/activity_bmr_category"
@@ -363,7 +393,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
